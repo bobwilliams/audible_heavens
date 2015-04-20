@@ -2,6 +2,10 @@
 
 An audible exploration of the heavens.
 
+## Shout Out
+
+This app consumes data provide by the [Star API](http://star-api.herokuapp.com/).  A big shout out to the folks over at [Hack the Universe](https://github.com/HacktheUniverse) for exposing this data.
+
 ## License
 
 The MIT License (MIT)
