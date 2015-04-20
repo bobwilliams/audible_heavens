@@ -1,4 +1,5 @@
 (ns star-sounds.core
+  (:gen-class)
   (:require [dynne.async-sound :refer :all]
             [cheshire.core :as json]
             [clj-http.client :as http]))
