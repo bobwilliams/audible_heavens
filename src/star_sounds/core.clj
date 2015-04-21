@@ -31,7 +31,8 @@
         rad   (get star :rad)
         msg   (str "STAR: " name " DISTANCE: " rad " LUMINOSITY: " lum)]
     (println msg)
-    (play (sinusoid 1.0 (* 10 lum)))))
+    (play (sinusoid 1.0 (* 1000 lum)))
+    (Thread/sleep 1000))) ;; hack for now...need to find a synchronous audio library 
 
 ; start up
 (defn -main [& args]
