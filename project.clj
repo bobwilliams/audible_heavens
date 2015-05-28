@@ -6,5 +6,10 @@
   :dependencies [ [org.clojure/clojure "1.6.0"]
                   [org.craigandera/dynne "0.4.1"]
                   [clj-http "1.1.0"]
+                  [compojure "1.3.4"]
+                  [http-kit "2.1.18"]
+                  [hiccup "1.0.5"]
+                  ; [ring/ring-core "1.4.0-RC1"]
+                  [ring "1.4.0-RC1"]
                   [cheshire "5.4.0"]]
   :main star-sounds.core)

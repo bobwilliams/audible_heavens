@@ -1,44 +1,36 @@
 (ns star-sounds.core
   (:gen-class)
-  (:require [dynne.async-sound :refer :all]
+  (:require [clojure.java.io :as io]
+            [org.httpkit.server :refer :all]
+            [ring.util.response :refer :all]
+            [compojure.core :refer [defroutes GET POST]]
+            [ring.middleware.reload :as reload]
+            [compojure.route :as route]
+            [compojure.handler :as handler]
             [cheshire.core :as json]
-            [clj-http.client :as http]))
+            [star-sounds.global :as g]
+            [star-sounds.views :as v]
+            [star-sounds.stars :as s]))
 
-; Let r be the radius of the sphere.  
-; (x,y,z) is inside the sphere if and only if x^2 + y^2 + z^2 < r^2.
-(defn radius [x y z]
-  (let [coords (vector x y z)]
-    (reduce + (map #(* % %) coords))))
+(def resource-conf (-> "config.json" io/resource))
 
-; getting the data
-(def stars-url "http://star-api.herokuapp.com/api/v1/stars")
+(defn read-conf [file]
+  (json/parse-string (slurp (or file resource-conf)) true))
 
-(defn query-stars [url]
-  (-> url (http/get) :body (json/parse-string true)))
+(defroutes routes
+  (GET "/alo" [] "alo guvna")
+  (GET "/" [] (v/welcome-view))
+  (GET "/rawdata" [] (v/rawdata (s/get-stars s/stars-url)))
+  (GET "/navigate" [] (v/navigate))
+  (route/resources "/static/"))
 
-(defn get_stars [raw_data]
-  (sort-by :rad 
-    (for [star raw_data
-        :let [rad (radius (get star :x) (get star :y) (get star :z))
-              lum (get star :lum)
-              label (get star :label)]]
-        (hash-map :label label :lum lum :rad rad))))
+(defn app-routes [{mode :mode}]
+  (if (= mode "prod")
+    (handler/site routes)
+    (-> #'routes handler/site reload/wrap-reload)))
 
-; "visualizing" the star via sound
-(defn sound_star [star]
-  (let [name  (get star :label)
-        lum   (get star :lum)
-        rad   (get star :rad)
-        msg   (str "STAR: " name " DISTANCE: " rad " LUMINOSITY: " lum)]
-    (println msg)
-    (play (sinusoid 1.0 (* 1000 lum)))
-    (Thread/sleep 1000))) ;; hack for now...need to find a synchronous audio library 
-
-; start up
-(defn -main [& args]
-  (let [raw_data (query-stars stars-url)
-        star_data (get_stars raw_data)
-        num_stars (count star_data)
-        stars_msg (str "Iterating through " num_stars " stars....\n")]
-    (println stars_msg)
-    (doseq [star star_data] (sound_star star))))
+(defn -main [& [conf-file]]
+  (let [conf (read-conf conf-file)
+        app (app-routes conf)]
+    (g/initialize-atoms conf)
+    (run-server app {:port @g/server-port :join? false})))
