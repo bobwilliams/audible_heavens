@@ -9,8 +9,10 @@
   (let [coords (vector x y z)]
     (reduce + (map #(* % %) coords))))
 
-; getting the data
 (def stars-url "http://star-api.herokuapp.com/api/v1/stars")
 
+(defn get-stars-raw [url]
+  (-> url (http/get) :body))
+
 (defn get-stars [url]
-  (-> url (http/get) :body (json/parse-string true)))
+  (-> (get-stars-raw url) (json/parse-string true)))

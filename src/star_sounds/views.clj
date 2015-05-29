@@ -13,6 +13,7 @@
     [:script {:src "http://mohayonao.github.io/timbre.js/timbre.js"}]
     [:script {:src "/static/bootstrap/js/bootstrap.min.js"}]
     [:script {:src "/static/js/stars.js"}]
+    [:script {:src "/static/js/vis/dist/vis.js"}]
     [:link {:href "/static/bootstrap/css/lavish-theme.css" :rel "stylesheet" :media "screen"}]
     [:link {:href "/static/css/star-sounds.css" :rel "stylesheet" :media "screen"}]
     extras])
@@ -24,7 +25,7 @@
         [:a.navbar-brand {:href "/"} @g/brand-name]]
       [:div.collapse.navbar-collapse
         [:ul.nav.navbar-nav.navbar-right
-          [:li [:a {:href "/rawdata"} "Raw Data" ]]
+          [:li [:a {:href "/allstars"} "All Stars" ]]
           [:li [:a {:href "/navigate"} "Navigate" ]]]]]]  )
 
 [:a.btn.btn-primary {:href "/db"} "Let's get started..."]
@@ -109,14 +110,14 @@
           (jumbotron (str "Welcome to " @g/brand-name "!") "An simple web app that allows you to audibly explore the heavens.")
         (common-footer)]]]))
 
-(defn rawdata [stars]
+(defn allstars [stars]
   (html
     [:html
       (common-head)
       [:body
         (nav-bar)
         [:div.container
-          (breadcrumbs [["home" "/"] ["rawdata" "/rawdata"]])
+          (breadcrumbs [["home" "/"] ["all stars" "/allstars"]])
           (page-header "Raw data for the stars")
           [:table.table-hover.table-bordered.table-condensed {:style "width: 100%"}
             [:thead
@@ -131,10 +132,7 @@
               [:th "Abs Mag"]
               [:th "App Mag"]]
             [:tbody
-              (map #(star-row %) (sort-by :id stars))
-              ; (map #(str "<tr><td>" %  "</td></tr>") stars)            
-            ]]
-
+              (map #(star-row %) (sort-by :id stars))]]
         (common-footer)]]]))
 
 (defn navigate []
@@ -146,4 +144,5 @@
         [:div.container
           (breadcrumbs [["home" "/"] ["navigate" "/navigate"]])
           (page-header "Navigate the stars")
+          [:div#mygraph ]
         (common-footer)]]]))

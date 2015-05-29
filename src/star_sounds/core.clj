@@ -20,7 +20,8 @@
 (defroutes routes
   (GET "/alo" [] "alo guvna")
   (GET "/" [] (v/welcome-view))
-  (GET "/rawdata" [] (v/rawdata (s/get-stars s/stars-url)))
+  (GET "/allstars" [] (v/allstars (s/get-stars s/stars-url)))
+  (GET "/rawdata" [] (s/get-stars-raw s/stars-url))
   (GET "/navigate" [] (v/navigate))
   (route/resources "/static/"))
 
