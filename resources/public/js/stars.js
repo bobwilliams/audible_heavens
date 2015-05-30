@@ -4,7 +4,7 @@ $(document).ready(function() {
   }
 });
 
-$(document).on('click', 'span', function() {
+$(document).on('click', 'button', function() {
   var sound = $(this).closest('td').data('sound');
   var osc = T("sin", {freq:sound*100, mul:0.5});
 

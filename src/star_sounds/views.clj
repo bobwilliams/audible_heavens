@@ -18,6 +18,13 @@
     [:link {:href "/static/css/star-sounds.css" :rel "stylesheet" :media "screen"}]
     extras])
 
+(defn forkme []
+  [:a {:href "https://github.com/bobwilliams/star_sounds"}
+    [:img {:style "position: absolute; top: 0; right: 0; border: 0; z-index: 9999"
+           :src "https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67"
+           :alt "Fork me on GitHub" 
+           :data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"}]])
+
 (defn nav-bar []
   [:div.navbar.navbar-inverse.navbar-fixed-top {:role "navigation"}
     [:div.container
@@ -26,7 +33,7 @@
       [:div.collapse.navbar-collapse
         [:ul.nav.navbar-nav.navbar-right
           [:li [:a {:href "/allstars"} "All Stars" ]]
-          [:li [:a {:href "/navigate"} "Navigate" ]]]]]]  )
+          [:li [:a {:href "/navigate"} "Navigate" ]]]]]])
 
 [:a.btn.btn-primary {:href "/db"} "Let's get started..."]
 
@@ -35,9 +42,9 @@
     [:h1 title]
     [:p sub-title]])
 
-(defn page-header [text]
+(defn page-header [text sub-text]
   [:div.page-header
-    [:h1 text]])
+    [:h1 text [:br] [:small sub-text]]])
 
 (defn common-footer []
   [:div#footer.footer
@@ -88,7 +95,7 @@
 
 (defn td-sound [value]
   [:td {:data-sound value} 
-    [:span.glyphicon.glyphicon-play-circle] (str "&nbsp;" value)])
+    [:button.btn.btn-default.glyphicon.glyphicon-play {:style "width: 100%;"} (str "&nbsp;" value)]])
 
 (defn star-row [star]
   [:tr 
@@ -108,10 +115,15 @@
       (common-head)
       [:body
         (nav-bar)
+        (forkme)
         [:div.container
           (breadcrumbs [["home" "/"]])
           (jumbotron (str "Welcome to " @g/brand-name "!") "An simple web app that allows you to audibly explore the heavens.")
-        (common-footer)]]]))
+          [:h4 "This application consumes data provide by the " 
+            [:a {:href "http://star-api.herokuapp.com/"} "Star API. "]
+            "A big shout out to the folks over at " 
+            [:a {:href "https://github.com/HacktheUniverse"} "Hack the Universe"] " for exposing this data."]]
+        (common-footer)]]))
 
 (defn allstars [stars]
   (html
@@ -121,7 +133,7 @@
         (nav-bar)
         [:div.container
           (breadcrumbs [["home" "/"] ["all stars" "/allstars"]])
-          (page-header "Raw data for the stars")
+          (page-header "Raw data for the stars" "Click on a numerical value to hear it")
           [:table.table-hover.table-bordered.table-condensed {:style "width: 100%"}
             [:thead
               [:th "Id"]
@@ -145,6 +157,6 @@
         (nav-bar)
         [:div.container
           (breadcrumbs [["home" "/"] ["navigate" "/navigate"]])
-          (page-header "Navigate the stars")
+          (page-header "Navigate the stars" "Showing luminosity")
           [:div#mygraph ]
         (common-footer)]]]))
