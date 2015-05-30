@@ -1,4 +1,4 @@
-(ns star-sounds.global)
+(ns audible_heavens.global)
 
 (def brand-name (atom "Audible Heavens"))
 (def server-port (atom 9000))

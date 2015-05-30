@@ -1,6 +1,6 @@
-(ns star-sounds.views
+(ns audible_heavens.views
   (:require [hiccup.core :refer :all]
-            [star-sounds.global :as g]))
+            [audible_heavens.global :as g]))
 
 (def bs-columns ["col-sm-1","col-sm-2","col-sm-3","col-sm-4","col-sm-5","col-sm-6","col-sm-7","col-sm-8","col-sm-9","col-sm-10","col-sm-11","col-sm-12"])
 
@@ -15,7 +15,7 @@
     [:script {:src "/static/js/stars.js"}]
     [:script {:src "/static/js/vis/dist/vis.js"}]
     [:link {:href "/static/bootstrap/css/lavish-theme.css" :rel "stylesheet" :media "screen"}]
-    [:link {:href "/static/css/star-sounds.css" :rel "stylesheet" :media "screen"}]
+    [:link {:href "/static/css/audible_heavens.css" :rel "stylesheet" :media "screen"}]
     extras])
 
 (defn forkme []
