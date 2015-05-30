@@ -1,4 +1,4 @@
-# star_sounds
+# audible_heavens
 
 An audible exploration of the heavens.
 
