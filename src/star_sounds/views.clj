@@ -86,18 +86,21 @@
   ([el col] 
     [:div {:class (nth bs-columns (- col 1))} el]))
 
+(defn td-sound [value]
+  [:td {:data-sound value} 
+    [:span.glyphicon.glyphicon-play-circle] (str "&nbsp;" value)])
+
 (defn star-row [star]
-  [:tr {:data-lum (get star :lum)}
-    [:td [:button.btn "Play"]]
+  [:tr 
     [:td (get star :id)]
     [:td (get star :label)]
     [:td (str "(" (get star :x) ", " (get star :y) ", " (get star :z) ")" )]
-    [:td (get star :distly)]
-    [:td (get star :lum)]
-    [:td (get star :colorb_v)]
-    [:td (get star :speed)]
-    [:td (get star :absmag)]
-    [:td (get star :appmag)]])
+    (td-sound (get star :distly))
+    (td-sound (get star :lum))
+    (td-sound (get star :colorb_v))
+    (td-sound (get star :speed))
+    (td-sound (get star :absmag))
+    (td-sound (get star :appmag))])
 
 (defn welcome-view []
   (html
@@ -121,7 +124,6 @@
           (page-header "Raw data for the stars")
           [:table.table-hover.table-bordered.table-condensed {:style "width: 100%"}
             [:thead
-              [:th "Hear"]
               [:th "Id"]
               [:th "Name"]
               [:th "Coords"]
