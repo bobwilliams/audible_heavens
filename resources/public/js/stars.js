@@ -14,10 +14,23 @@ $(document).on('click', 'button', function() {
 });
 
 var graph = null;
-var labels = {};
+var starMemos = {};
 
 var getKey = function(star){
   return star.x.toString() + star.y.toString() + star.z.toString();
+}
+
+var generateTooltip = function(star){
+  var memoStar = starMemos[getKey(star)];
+  var html = "<h5>Name: " + memoStar.label + "</h5>";
+  html += "<p>Coords: (" + memoStar.x + ", " + memoStar.y + ", " + memoStar.z + ")";
+  html += "<br>Distance: " + memoStar.distly;
+  html += "<br>Luminosity: " + memoStar.lum;
+  html += "<br>Color: " + memoStar.colorb_v;
+  html += "<br>Speed: " + memoStar.speed;
+  html += "<br>Abs Mag: " + memoStar.absmag;
+  html += "<br>App Mag: " + memoStar.appmag; 
+  return html;
 }
 
 // Called when the Visualization API is loaded.
@@ -30,7 +43,7 @@ function drawVisualization() {
       var x = stars[i].x,
           y = stars[i].y,
           z = stars[i].z;
-      labels[getKey(stars[i])] = stars[i].label;
+      starMemos[getKey(stars[i])] = stars[i];
       data.add({
             x: x,
             y: y,
@@ -50,7 +63,7 @@ function drawVisualization() {
       keepAspectRatio: true,
       verticalRatio: 0.5,
       legendLabel: "Luminosity",
-      tooltip: function(star) {return labels[getKey(star)];}
+      tooltip: function(star) {return generateTooltip(star);}
     };
 
     // create a graph3d
