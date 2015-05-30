@@ -38,7 +38,7 @@
       [:div#menu-nav-collapse.collapse.navbar-collapse
         [:ul.nav.navbar-nav.navbar-right
           [:li [:a {:href "/allstars"} "All Stars" ]]
-          [:li [:a {:href "/navigate"} "Navigate" ]]]]]])
+          [:li [:a {:href "/dashboard"} "Dashboard" ]]]]]])
 
 [:a.btn.btn-primary {:href "/db"} "Let's get started..."]
 
@@ -138,7 +138,7 @@
         (nav-bar)
         [:div.container
           (breadcrumbs [["home" "/"] ["all stars" "/allstars"]])
-          (page-header "Raw data for the stars" "Click on a numerical value to hear it")
+          (page-header "Raw data" "All the star data in a tabular format")
           [:table.table-hover.table-bordered.table-condensed {:style "width: 100%"}
             [:thead
               [:th "Id"]
@@ -154,14 +154,14 @@
               (map #(star-row %) (sort-by :id stars))]]
         (common-footer)]]]))
 
-(defn navigate []
+(defn dashboard []
   (html
     [:html
       (common-head)
       [:body
         (nav-bar)
         [:div.container
-          (breadcrumbs [["home" "/"] ["navigate" "/navigate"]])
-          (page-header "Navigate the stars" "Showing luminosity")
-          [:div#mygraph ]
+          (breadcrumbs [["home" "/"] ["dashboard" "/dashboard"]])
+          (page-header "Dashboard" "Some key views of the stars")
+          [:div#mygraph]
         (common-footer)]]]))

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  if (window.location.pathname == '/navigate') {
+  if (window.location.pathname == '/dashboard') {
     drawVisualization();
   }
 });

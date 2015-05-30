@@ -22,7 +22,7 @@
   (GET "/" [] (v/welcome-view))
   (GET "/allstars" [] (v/allstars (s/get-stars s/stars-url)))
   (GET "/rawdata" [] (s/get-stars-raw s/stars-url))
-  (GET "/navigate" [] (v/navigate))
+  (GET "/dashboard" [] (v/dashboard))
   (route/resources "/static/"))
 
 (defn app-routes [{mode :mode}]
