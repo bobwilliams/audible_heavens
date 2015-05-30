@@ -20,7 +20,7 @@
 
 (defn forkme []
   [:a {:href "https://github.com/bobwilliams/audible_heavens"}
-    [:img {:style "position: absolute; top: 0; right: 0; border: 0; z-index: 9999"
+    [:img {:style "position: absolute; top: 51; right: 0; border: 0; z-index: 9000"
            :src "https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67"
            :alt "Fork me on GitHub" 
            :data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"}]])
@@ -29,8 +29,13 @@
   [:div.navbar.navbar-inverse.navbar-fixed-top {:role "navigation"}
     [:div.container
       [:div.navbar-header
-        [:a.navbar-brand {:href "/"} @g/brand-name]]
-      [:div.collapse.navbar-collapse
+        [:button.btn.navbar-toggle {:data-toggle "collapse" :data-target "#menu-nav-collapse"}
+          [:span.sr-only "Toggle Navigation"]
+          [:span.icon-bar]
+          [:span.icon-bar]
+          [:span.icon-bar]]
+        [:a#brand.navbar-brand {:href "/"} @g/brand-name]]
+      [:div#menu-nav-collapse.collapse.navbar-collapse
         [:ul.nav.navbar-nav.navbar-right
           [:li [:a {:href "/allstars"} "All Stars" ]]
           [:li [:a {:href "/navigate"} "Navigate" ]]]]]])
