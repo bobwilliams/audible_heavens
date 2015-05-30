@@ -1,6 +1,6 @@
-(ns star-sounds.core-test
+(ns audible_heavens.core-test
   (:require [clojure.test :refer :all]
-            [star-sounds.core :refer :all]))
+            [audible_heavens.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
