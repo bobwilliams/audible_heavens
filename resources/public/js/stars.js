@@ -1,16 +1,31 @@
+window.addEventListener('load', init, false);
+
 $(document).ready(function() {
   if (window.location.pathname == '/dashboard') {
     drawVisualization();
   }
 });
 
+var context;
+
+function init() {
+  try {
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    context = new AudioContext();
+  }
+  catch(e) {
+    console.log('Web Audio API is not supported in this browser');
+  }
+}
+
 $(document).on('click', 'button', function() {
   var sound = $(this).closest('td').data('sound');
-  var osc = T("sin", {freq:sound*100, mul:0.5});
-
-  T("timeout", {timeout:1000}).on("ended", function() {
-    this.stop();
-  }).set({buddies:osc}).start();
+  var oscillator = context.createOscillator();
+  oscillator.type = 'sine';    
+  oscillator.connect(context.destination);
+  oscillator.frequency.value = sound * 10; // value in hertz - need to normalize this over the max - min range into a human hearable sound
+  oscillator.start();
+  setTimeout(function(){ oscillator.stop(); }, 1000);
 });
 
 var graph = null;
