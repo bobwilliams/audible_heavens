@@ -8,11 +8,11 @@
             [compojure.route :as route]
             [compojure.handler :as handler]
             [cheshire.core :as json]
-            [audible_heavens.global :as g]
-            [audible_heavens.views :as v]
-            [audible_heavens.views.landing :as l]
-            [audible_heavens.views.rawdata :as rd]
-            [audible_heavens.data :as d]))
+            [audible_heavens.global :as global]
+            [audible_heavens.views.landing :as landing]
+            [audible_heavens.views.rawdata :as rawdata]
+            [audible_heavens.views.dashboard :as dashboard]
+            [audible_heavens.data :as data]))
 
 (def resource-conf (-> "config.json" io/resource))
 
@@ -21,10 +21,10 @@
 
 (defroutes routes
   (GET "/alo" [] "alo guvna")
-  (GET "/" [] (l/welcome-view))
-  (GET "/allstars" [] (rd/allstars (d/get-stars d/stars-url)))
-  (GET "/rawdata" [] (d/get-data-raw d/stars-url))
-  (GET "/dashboard" [] (v/dashboard))
+  (GET "/" [] (landing/index))
+  (GET "/allstars" [] (rawdata/index (data/get-stars data/stars-url)))
+  (GET "/rawdata" [] (data/get-data-raw data/stars-url))
+  (GET "/dashboard" [] (dashboard/index))
   (route/resources "/static/"))
 
 (defn app-routes [{mode :mode}]
@@ -35,5 +35,5 @@
 (defn -main [& [conf-file]]
   (let [conf (read-conf conf-file)
         app (app-routes conf)]
-    (g/initialize-atoms conf)
-    (run-server app {:port @g/server-port :join? false})))
+    (global/initialize-atoms conf)
+    (run-server app {:port @global/server-port :join? false})))

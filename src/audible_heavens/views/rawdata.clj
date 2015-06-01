@@ -1,7 +1,7 @@
 (ns audible_heavens.views.rawdata
   (:require [hiccup.core :refer :all]
-            [audible_heavens.global :as g]
-            [audible_heavens.views :as v]))
+            [audible_heavens.global :as global]
+            [audible_heavens.views :as view]))
 
 (defn sort-buttons []
   [:h4 "Sort By"]
@@ -35,17 +35,17 @@
     (star-item (get star :absmag) "Abs Mag" :span.absmag.text-success)
     (star-item (get star :appmag) "App Mag" :span.appmag.text-success)])
 
-(defn allstars [stars]
+(defn index [stars]
   (html
     [:html
-      (v/common-head)
+      (view/common-head)
       [:body
-        (v/nav-bar)
+        (view/nav-bar)
         [:div.container
-          (v/breadcrumbs [["home" "/"] ["all stars" "/allstars"]])
-          (v/page-header "All Stars" (str "showing data for " (count stars) " stars"))
+          (view/breadcrumbs [["home" "/"] ["all stars" "/allstars"]])
+          (view/page-header "All Stars" (str "showing data for " (count stars) " stars"))
           (sort-buttons)
           [:br]
           [:div#star-data.isotope-stars
             (map #(star-row %) (sort-by :name stars ))]]
-        (v/common-footer)]]))
+        (view/common-footer)]]))

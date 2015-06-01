@@ -96,15 +96,3 @@
   ([el] (ctl el 4))
   ([el col] 
     [:div {:class (nth bs-columns (- col 1))} el]))
-
-(defn dashboard []
-  (html
-    [:html
-      (common-head)
-      [:body
-        (nav-bar)
-        [:div.container
-          (breadcrumbs [["home" "/"] ["dashboard" "/dashboard"]])
-          (page-header "Dashboard" (str "graphing luminosity for the stars"))
-          [:div#mygraph]
-        (common-footer)]]]))
