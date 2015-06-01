@@ -113,7 +113,7 @@
   [:div.isotope-star-item.well
     [:h4.name.text-primary.strong (get star :label)]
     [:small.coords.text-warning (str "(" (get star :x) ", " (get star :y) ", " (get star :z) ")" )]
-    [:p "&nbsp;"]
+    [:hr]
     (star-item (get star :distly) "Distance" :span.distance.text-success)
     (star-item (get star :lum) "Luminosity" :span.luminosity.text-success)
     (star-item (get star :colorb_v) "Color" :span.color.text-success)
@@ -145,17 +145,19 @@
         (nav-bar)
         [:div.container
           (breadcrumbs [["home" "/"] ["all stars" "/allstars"]])
-          (page-header "All Stars" "The raw data for all the stars")
+          (page-header "All Stars" (str "showing data for " (count stars) " stars"))
           [:h4 "Sort By"]
           [:div#sorts.button-group
-            [:button.btn.btn-default {:data-sort-by "name"} "Name"]
+            [:button.btn.btn-default.btn-primary {:data-sort-by "original"} "original order"]
+            [:button.btn.btn-default {:data-sort-by "name"} "name"]
             ; [:button.btn.btn-default {:data-sort-by "coords"} "Coords"]
-            [:button.btn.btn-default {:data-sort-by "distance"} "Distance"]
-            [:button.btn.btn-default {:data-sort-by "luminosity"} "Luminosity"]
-            [:button.btn.btn-default {:data-sort-by "color"} "Color"]
-            [:button.btn.btn-default {:data-sort-by "speed"} "Speed"]
-            [:button.btn.btn-default {:data-sort-by "absmag"} "Abs Mag"]
-            [:button.btn.btn-default {:data-sort-by "appmag"} "App Mag"]]
+            [:button.btn.btn-default {:data-sort-by "distance"} "distance"]
+            [:button.btn.btn-default {:data-sort-by "luminosity"} "luminosity"]
+            [:button.btn.btn-default {:data-sort-by "color"} "color"]
+            [:button.btn.btn-default {:data-sort-by "speed"} "speed"]
+            [:button.btn.btn-default {:data-sort-by "absmag"} "abs mag"]
+            [:button.btn.btn-default {:data-sort-by "appmag"} "app mag"]]
+          [:br]
           [:div#star-data.isotope-stars
             (map #(star-row %) (sort-by :name stars ))]]
         (common-footer)]]))
@@ -168,6 +170,6 @@
         (nav-bar)
         [:div.container
           (breadcrumbs [["home" "/"] ["dashboard" "/dashboard"]])
-          (page-header "Dashboard" "Some key views of the stars")
+          (page-header "Dashboard" (str "graphing luminosity for the stars"))
           [:div#mygraph]
         (common-footer)]]]))
