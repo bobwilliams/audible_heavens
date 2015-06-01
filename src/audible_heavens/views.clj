@@ -98,13 +98,9 @@
   ([el col] 
     [:div {:class (nth bs-columns (- col 1))} el]))
 
-(defn td-sound [value]
-  [:td {:data-sound value} 
-    [:button.btn.btn-default.glyphicon.glyphicon-play {:style "width: 100%;"} (str "&nbsp;" value)]])
-
 (defn star-item [value label selector]
   [:div {:data-sound value} 
-    [:i.glyphicon.glyphicon-music] 
+    [:i.clickable.glyphicon.glyphicon-music] 
     "&nbsp;&nbsp;" 
     [:span.text-info (str label ": ")] 
     [selector value]])
