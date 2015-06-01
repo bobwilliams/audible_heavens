@@ -148,7 +148,7 @@
           (page-header "All Stars" (str "showing data for " (count stars) " stars"))
           [:h4 "Sort By"]
           [:div#sorts.button-group
-            [:button.btn.btn-default.btn-primary {:data-sort-by "original"} "original order"]
+            [:button.btn.btn-default.btn-primary {:data-sort-by "original-order"} "original order"]
             [:button.btn.btn-default {:data-sort-by "name"} "name"]
             ; [:button.btn.btn-default {:data-sort-by "coords"} "Coords"]
             [:button.btn.btn-default {:data-sort-by "distance"} "distance"]
