@@ -10,7 +10,7 @@
             [cheshire.core :as json]
             [audible_heavens.global :as g]
             [audible_heavens.views :as v]
-            [audible_heavens.stars :as s]))
+            [audible_heavens.data :as d]))
 
 (def resource-conf (-> "config.json" io/resource))
 
@@ -20,8 +20,8 @@
 (defroutes routes
   (GET "/alo" [] "alo guvna")
   (GET "/" [] (v/welcome-view))
-  (GET "/allstars" [] (v/allstars (s/get-stars s/stars-url)))
-  (GET "/rawdata" [] (s/get-stars-raw s/stars-url))
+  (GET "/allstars" [] (v/allstars (d/get-stars d/stars-url)))
+  (GET "/rawdata" [] (d/get-data-raw d/stars-url))
   (GET "/dashboard" [] (v/dashboard))
   (route/resources "/static/"))
 

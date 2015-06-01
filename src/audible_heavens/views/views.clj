@@ -1,6 +1,7 @@
 (ns audible_heavens.views
   (:require [hiccup.core :refer :all]
-            [audible_heavens.global :as g]))
+            [audible_heavens.global :as g]
+            [audible_heavens.data :as d]))
 
 (def bs-columns ["col-sm-1","col-sm-2","col-sm-3","col-sm-4","col-sm-5","col-sm-6","col-sm-7","col-sm-8","col-sm-9","col-sm-10","col-sm-11","col-sm-12"])
 
@@ -98,6 +99,19 @@
   ([el col] 
     [:div {:class (nth bs-columns (- col 1))} el]))
 
+(defn sort-buttons []
+  [:h4 "Sort By"]
+  [:div#sorts.button-group
+    [:button.btn.btn-default.btn-primary {:data-sort-by "original-order"} "original order"]
+    [:button.btn.btn-default {:data-sort-by "name"} "name"]
+    ; [:button.btn.btn-default {:data-sort-by "coords"} "Coords"]
+    [:button.btn.btn-default {:data-sort-by "distance"} "distance"]
+    [:button.btn.btn-default {:data-sort-by "luminosity"} "luminosity"]
+    [:button.btn.btn-default {:data-sort-by "color"} "color"]
+    [:button.btn.btn-default {:data-sort-by "speed"} "speed"]
+    [:button.btn.btn-default {:data-sort-by "absmag"} "abs mag"]
+    [:button.btn.btn-default {:data-sort-by "appmag"} "app mag"]])
+
 (defn star-item [value label selector]
   [:div {:data-sound value} 
     [:i.clickable.glyphicon.glyphicon-music] 
@@ -142,17 +156,7 @@
         [:div.container
           (breadcrumbs [["home" "/"] ["all stars" "/allstars"]])
           (page-header "All Stars" (str "showing data for " (count stars) " stars"))
-          [:h4 "Sort By"]
-          [:div#sorts.button-group
-            [:button.btn.btn-default.btn-primary {:data-sort-by "original-order"} "original order"]
-            [:button.btn.btn-default {:data-sort-by "name"} "name"]
-            ; [:button.btn.btn-default {:data-sort-by "coords"} "Coords"]
-            [:button.btn.btn-default {:data-sort-by "distance"} "distance"]
-            [:button.btn.btn-default {:data-sort-by "luminosity"} "luminosity"]
-            [:button.btn.btn-default {:data-sort-by "color"} "color"]
-            [:button.btn.btn-default {:data-sort-by "speed"} "speed"]
-            [:button.btn.btn-default {:data-sort-by "absmag"} "abs mag"]
-            [:button.btn.btn-default {:data-sort-by "appmag"} "app mag"]]
+          (sort-buttons)
           [:br]
           [:div#star-data.isotope-stars
             (map #(star-row %) (sort-by :name stars ))]]
