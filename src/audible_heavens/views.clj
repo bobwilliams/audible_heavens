@@ -13,6 +13,7 @@
     [:script {:src "/static/bootstrap/js/bootstrap.min.js"}]
     [:script {:src "/static/js/stars.js"}]
     [:script {:src "/static/js/vis/dist/vis.js"}]
+    [:script {:src "//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.0/isotope.pkgd.min.js"}]
     [:link {:href "/static/bootstrap/css/lavish-theme.css" :rel "stylesheet" :media "screen"}]
     [:link {:href "/static/css/audible_heavens.css" :rel "stylesheet" :media "screen"}]
     extras])
@@ -101,17 +102,24 @@
   [:td {:data-sound value} 
     [:button.btn.btn-default.glyphicon.glyphicon-play {:style "width: 100%;"} (str "&nbsp;" value)]])
 
+(defn star-item [value label selector]
+  [:div {:data-sound value} 
+    [:i.glyphicon.glyphicon-music] 
+    "&nbsp;&nbsp;" 
+    [:span.text-info (str label ": ")] 
+    [selector value]])
+
 (defn star-row [star]
-  [:tr 
-    [:td (get star :id)]
-    [:td (get star :label)]
-    [:td (str "(" (get star :x) ", " (get star :y) ", " (get star :z) ")" )]
-    (td-sound (get star :distly))
-    (td-sound (get star :lum))
-    (td-sound (get star :colorb_v))
-    (td-sound (get star :speed))
-    (td-sound (get star :absmag))
-    (td-sound (get star :appmag))])
+  [:div.isotope-star-item.well
+    [:h4.name.text-primary.strong (get star :label)]
+    [:small.coords.text-warning (str "(" (get star :x) ", " (get star :y) ", " (get star :z) ")" )]
+    [:p "&nbsp;"]
+    (star-item (get star :distly) "Distance" :span.distance.text-success)
+    (star-item (get star :lum) "Luminosity" :span.luminosity.text-success)
+    (star-item (get star :colorb_v) "Color" :span.color.text-success)
+    (star-item (get star :speed) "Speed" :span.speed.text-success)
+    (star-item (get star :absmag) "Abs Mag" :span.absmag.text-success)
+    (star-item (get star :appmag) "App Mag" :span.appmag.text-success)])
 
 (defn welcome-view []
   (html
@@ -137,21 +145,20 @@
         (nav-bar)
         [:div.container
           (breadcrumbs [["home" "/"] ["all stars" "/allstars"]])
-          (page-header "Raw data" "All the star data in a tabular format")
-          [:table.table-hover.table-bordered.table-condensed {:style "width: 100%"}
-            [:thead
-              [:th "Id"]
-              [:th "Name"]
-              [:th "Coords"]
-              [:th "Distance"]
-              [:th "Luminosity"]
-              [:th "Color"]
-              [:th "Speed"]
-              [:th "Abs Mag"]
-              [:th "App Mag"]]
-            [:tbody
-              (map #(star-row %) (sort-by :id stars))]]
-        (common-footer)]]]))
+          (page-header "All Stars" "The raw data for all the stars")
+          [:h4 "Sort By"]
+          [:div#sorts.button-group
+            [:button.btn.btn-default {:data-sort-by "name"} "Name"]
+            ; [:button.btn.btn-default {:data-sort-by "coords"} "Coords"]
+            [:button.btn.btn-default {:data-sort-by "distance"} "Distance"]
+            [:button.btn.btn-default {:data-sort-by "luminosity"} "Luminosity"]
+            [:button.btn.btn-default {:data-sort-by "color"} "Color"]
+            [:button.btn.btn-default {:data-sort-by "speed"} "Speed"]
+            [:button.btn.btn-default {:data-sort-by "absmag"} "Abs Mag"]
+            [:button.btn.btn-default {:data-sort-by "appmag"} "App Mag"]]
+          [:div#star-data.isotope-stars
+            (map #(star-row %) (sort-by :name stars ))]]
+        (common-footer)]]))
 
 (defn dashboard []
   (html

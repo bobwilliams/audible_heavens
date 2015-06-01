@@ -1,11 +1,47 @@
 window.addEventListener('load', init, false);
 
 $(document).ready(function() {
-  if (window.location.pathname == '/dashboard') {
+  if(window.location.pathname == '/allstars') {
+    setupGrid();
+  } else if (window.location.pathname == '/dashboard') {
     drawVisualization();
   }
 });
 
+// isotope stuff
+
+var setupGrid = function() {
+  var $container = $('.isotope-stars').isotope({
+    itemSelector: '.isotope-star-item',
+    layoutMode: 'fitRows',
+    getSortData: {
+      name: '.name',
+      distance: '.distance parseInt',
+      luminosity: '.luminosity parseInt',
+      color: '.color parseInt',
+      speed: '.speed parseInt',
+      absmag: '.absmag parseInt',
+      appmag: '.appmag parseInt'
+    }
+  });
+
+  // bind sort button click
+  $('#sorts').on( 'click', 'button', function() {
+    var sortByValue = $(this).attr('data-sort-by');
+    $container.isotope({ sortBy: sortByValue });
+  });
+
+  // change is-checked class on buttons
+  $('.button-group').each( function( i, buttonGroup ) {
+    var $buttonGroup = $( buttonGroup );
+    $buttonGroup.on( 'click', 'button', function() {
+      $buttonGroup.find('.btn-primary').removeClass('btn-primary');
+      $( this ).addClass('btn-primary');
+    });
+  });
+}
+
+// audio stuff
 var context;
 
 function init() {
@@ -18,8 +54,8 @@ function init() {
   }
 }
 
-$(document).on('click', 'button', function() {
-  var sound = $(this).closest('td').data('sound');
+$(document).on('click', 'i', function() {
+  var sound = $(this).closest('div').data('sound');
   var oscillator = context.createOscillator();
   oscillator.type = 'sine';    
   oscillator.connect(context.destination);
@@ -27,6 +63,9 @@ $(document).on('click', 'button', function() {
   oscillator.start();
   setTimeout(function(){ oscillator.stop(); }, 1000);
 });
+
+
+// graphing stuff
 
 var graph = null;
 var starMemos = {};
