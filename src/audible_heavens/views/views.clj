@@ -41,8 +41,6 @@
           [:li [:a {:href "/allstars"} "All Stars" ]]
           [:li [:a {:href "/dashboard"} "Dashboard" ]]]]]])
 
-[:a.btn.btn-primary {:href "/db"} "Let's get started..."]
-
 (defn jumbotron [title sub-title]
   [:div.jumbotron
     [:h1 title]
@@ -98,69 +96,6 @@
   ([el] (ctl el 4))
   ([el col] 
     [:div {:class (nth bs-columns (- col 1))} el]))
-
-(defn sort-buttons []
-  [:h4 "Sort By"]
-  [:div#sorts.button-group
-    [:button.btn.btn-default.btn-primary {:data-sort-by "original-order"} "original order"]
-    [:button.btn.btn-default {:data-sort-by "name"} "name"]
-    ; [:button.btn.btn-default {:data-sort-by "coords"} "Coords"]
-    [:button.btn.btn-default {:data-sort-by "distance"} "distance"]
-    [:button.btn.btn-default {:data-sort-by "luminosity"} "luminosity"]
-    [:button.btn.btn-default {:data-sort-by "color"} "color"]
-    [:button.btn.btn-default {:data-sort-by "speed"} "speed"]
-    [:button.btn.btn-default {:data-sort-by "absmag"} "abs mag"]
-    [:button.btn.btn-default {:data-sort-by "appmag"} "app mag"]])
-
-(defn star-item [value label selector]
-  [:div {:data-sound value} 
-    [:i.clickable.glyphicon.glyphicon-music] 
-    "&nbsp;&nbsp;" 
-    [:span.text-info (str label ": ")] 
-    [selector value]])
-
-(defn star-row [star]
-  [:div.isotope-star-item.well
-    [:h4.name.text-primary.strong (get star :label)]
-    [:small.coords.text-warning (str "(" (get star :x) ", " (get star :y) ", " (get star :z) ")" )]
-    [:hr]
-    (star-item (get star :distly) "Distance" :span.distance.text-success)
-    (star-item (get star :lum) "Luminosity" :span.luminosity.text-success)
-    (star-item (get star :colorb_v) "Color" :span.color.text-success)
-    (star-item (get star :speed) "Speed" :span.speed.text-success)
-    (star-item (get star :absmag) "Abs Mag" :span.absmag.text-success)
-    (star-item (get star :appmag) "App Mag" :span.appmag.text-success)])
-
-(defn welcome-view []
-  (html
-    [:html
-      (common-head)
-      [:body
-        (nav-bar)
-        (forkme)
-        [:div.container
-          (breadcrumbs [["home" "/"]])
-          (jumbotron (str "Welcome to " @g/brand-name "!") "An simple web app that allows you to audibly explore the heavens.")
-          [:h4 "This application consumes data provide by the " 
-            [:a {:href "http://star-api.herokuapp.com/"} "Star API. "]
-            "A big shout out to the folks over at " 
-            [:a {:href "https://github.com/HacktheUniverse"} "Hack the Universe"] " for exposing this data."]]
-        (common-footer)]]))
-
-(defn allstars [stars]
-  (html
-    [:html
-      (common-head)
-      [:body
-        (nav-bar)
-        [:div.container
-          (breadcrumbs [["home" "/"] ["all stars" "/allstars"]])
-          (page-header "All Stars" (str "showing data for " (count stars) " stars"))
-          (sort-buttons)
-          [:br]
-          [:div#star-data.isotope-stars
-            (map #(star-row %) (sort-by :name stars ))]]
-        (common-footer)]]))
 
 (defn dashboard []
   (html
