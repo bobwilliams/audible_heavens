@@ -16,9 +16,9 @@ var setupGrid = function() {
     layoutMode: 'fitRows',
     getSortData: {
       name: '.name',
-      distance: '.distance parseInt',
-      luminosity: '.luminosity parseInt',
-      color: '.color parseInt',
+      distly: '.distly parseInt',
+      lum: '.lum parseInt',
+      colorb_v: '.colorb_v parseInt',
       speed: '.speed parseInt',
       absmag: '.absmag parseInt',
       appmag: '.appmag parseInt'
