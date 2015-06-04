@@ -22,7 +22,9 @@
 (defroutes routes
   (GET "/alo" [] "alo guvna")
   (GET "/" [] (landing/index))
-  (GET "/allstars" [] (rawdata/index (data/get-stars data/stars-url)))
+  (GET "/allstars" [] 
+    (let [stars (data/get-data data/stars-url)]
+      (rawdata/index stars (data/get-thresholds stars data/star-attributes))))
   (GET "/rawdata" [] (data/get-data-raw data/stars-url))
   (GET "/dashboard" [] (dashboard/index))
   (route/resources "/static/"))

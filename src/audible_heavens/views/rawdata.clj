@@ -1,7 +1,8 @@
 (ns audible_heavens.views.rawdata
   (:require [hiccup.core :refer :all]
             [audible_heavens.global :as global]
-            [audible_heavens.views :as view]))
+            [audible_heavens.views :as view]
+            [audible_heavens.data :as data]))
 
 (defn sort-buttons []
   [:h4 "Sort By"]
@@ -16,26 +17,32 @@
     [:button.btn.btn-default {:data-sort-by "absmag"} "abs mag"]
     [:button.btn.btn-default {:data-sort-by "appmag"} "app mag"]])
 
-(defn star-item [value label selector]
-  [:div {:data-sound value} 
+(defn star-item [value label norm]
+  [:div {:data-sound norm} 
     [:i.clickable.glyphicon.glyphicon-music] 
     "&nbsp;&nbsp;" 
     [:span.text-info (str label ": ")] 
-    [selector value]])
+    [:span.text-success value]])
 
-(defn star-row [star]
+(defn star-row [star thresholds]
   [:div.isotope-star-item.well
     [:h4.name.text-primary.strong (get star :label)]
     [:small.coords.text-warning (str "(" (get star :x) ", " (get star :y) ", " (get star :z) ")" )]
     [:hr]
-    (star-item (get star :distly) "Distance" :span.distance.text-success)
-    (star-item (get star :lum) "Luminosity" :span.luminosity.text-success)
-    (star-item (get star :colorb_v) "Color" :span.color.text-success)
-    (star-item (get star :speed) "Speed" :span.speed.text-success)
-    (star-item (get star :absmag) "Abs Mag" :span.absmag.text-success)
-    (star-item (get star :appmag) "App Mag" :span.appmag.text-success)])
+    (for [attrib data/star-attributes
+      :let [k (key attrib)
+            v (get star k)
+            lbl (val attrib)
+            thres (get thresholds k)
+            max (get thres :max)
+            min (get thres :min)
+            norm (data/normalize-value v max min)]]
+        (star-item v lbl norm))])
 
-(defn index [stars]
+(defn display-data [stars thresholds]
+  (map #(star-row % thresholds) (sort-by :id stars)))
+
+(defn index [stars thresholds]
   (html
     [:html
       (view/common-head)
@@ -47,5 +54,5 @@
           (sort-buttons)
           [:br]
           [:div#star-data.isotope-stars
-            (map #(star-row %) (sort-by :name stars ))]]
+            (display-data stars thresholds)]]
         (view/common-footer)]]))

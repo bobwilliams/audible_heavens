@@ -1,7 +1,6 @@
 (ns audible_heavens.views
   (:require [hiccup.core :refer :all]
-            [audible_heavens.global :as g]
-            [audible_heavens.data :as d]))
+            [audible_heavens.global :as g]))
 
 (def bs-columns ["col-sm-1","col-sm-2","col-sm-3","col-sm-4","col-sm-5","col-sm-6","col-sm-7","col-sm-8","col-sm-9","col-sm-10","col-sm-11","col-sm-12"])
 
