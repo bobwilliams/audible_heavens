@@ -1,4 +1,8 @@
-# [audibleheavens.com](http://audibleheavens.com): An audible exploration of the heavens.
+# An audible exploration of the heavens.
+
+Find the live site over at [audibleheavens.com](http://audibleheavens.com)
+
+## So, what is this?
 
 Are you still struggling with the scale of the universe?  Still having a hard time realizing the vastness of space and the size of celestial objects?
 
