@@ -1,8 +1,12 @@
-# audible_heavens
+# [audibleheavens.com](http://audibleheavens.com): An audible exploration of the heavens.
 
-An audible exploration of the heavens.
+Are you still struggling with the scale of the universe?  Still having a hard time realizing the vastness of space and the size of celestial objects?
 
-[audibleheavens.com](http://audibleheavens.com)
+If so, Audible Heavens gives you a new way to explore the universe.
+
+By using sounds, Audible Heavens provides another and meaningful way to understand things such as how bring a star is, how fast it is moving in relational to cosmic expansion, or even it's spatial relationtional to say the Sun.
+
+_As a note: this project is very much in an alpha phase._
 
 ## Shout Out
 
