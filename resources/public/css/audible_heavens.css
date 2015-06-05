@@ -35,12 +35,12 @@ body {
   position: relative;
   float: left;
   width: 210px;
-  height: 200px;
+  height: 220px;
   margin: 5px;
   padding: 10px;
 }
 
 .isotope-star-item > * {
   margin: 0;
-  padding: 0;
+  padding: 3px;
 }

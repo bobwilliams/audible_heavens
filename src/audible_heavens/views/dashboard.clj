@@ -10,7 +10,7 @@
       [:body
         (view/nav-bar)
         [:div.container
-          (view/breadcrumbs [["home" "/"] ["dashboard" "/dashboard"]])
+          ; (view/breadcrumbs [["home" "/"] ["dashboard" "/dashboard"]])
           (view/page-header "Dashboard" (str "graphing luminosity for the stars"))
           [:div#mygraph]
         (view/common-footer)]]]))

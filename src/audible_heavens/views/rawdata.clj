@@ -24,19 +24,20 @@
     [:span {:class (subs (str k " text-success") 1)} value]])
 
 (defn star-row [star thresholds]
-  [:div.isotope-star-item.well
-    [:h4.name.text-primary.strong (get star :label)]
-    [:small.coords.text-warning (str "(" (get star :x) ", " (get star :y) ", " (get star :z) ")" )]
-    [:hr]
-    (for [attrib data/star-attributes
-      :let [k (key attrib)
-            v (get star k)
-            lbl (val attrib)
-            thres (get thresholds k)
-            max (get thres :max)
-            min (get thres :min)
-            norm (data/normalize-value v max min)]]
-        (star-item k v lbl norm))])
+  [:div.isotope-star-item.panel.panel-info
+    [:div.panel-heading
+      [:h4.name (get star :label)]]
+    [:div.panel-body  
+      [:small.coords (str "(" (get star :x) ", " (get star :y) ", " (get star :z) ")" )]
+      (for [attrib data/star-attributes
+        :let [k (key attrib)
+              v (get star k)
+              lbl (val attrib)
+              thres (get thresholds k)
+              max (get thres :max)
+              min (get thres :min)
+              norm (data/normalize-value v max min)]]
+          (star-item k v lbl norm))]])
 
 (defn display-data [stars thresholds]
   (map #(star-row % thresholds) (sort-by :id stars)))
@@ -48,7 +49,7 @@
       [:body
         (view/nav-bar)
         [:div.container
-          (view/breadcrumbs [["home" "/"] ["all stars" "/allstars"]])
+          ; (view/breadcrumbs [["home" "/"] ["all stars" "/allstars"]])
           (view/page-header "All Stars" (str "showing data for " (count stars) " stars"))
           [:h4 "Sort By"]
           (sort-buttons)
