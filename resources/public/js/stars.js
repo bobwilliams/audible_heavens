@@ -1,7 +1,5 @@
-window.addEventListener('load', init, false);
-
 $(document).ready(function() {
-  if(window.location.pathname == '/allstars') {
+  if(window.location.pathname.startsWith('/rawdata')) {
     setupGrid();
   } else if (window.location.pathname == '/dashboard') {
     drawVisualization();
@@ -9,29 +7,64 @@ $(document).ready(function() {
 });
 
 // isotope stuff
-
 var setupGrid = function() {
-  var $container = $('.isotope-stars').isotope({
-    itemSelector: '.isotope-star-item',
-    layoutMode: 'fitRows',
-    getSortData: {
-      name: '.name',
-      distly: '.distly parseInt',
-      lum: '.lum parseInt',
-      colorb_v: '.colorb_v parseInt',
-      speed: '.speed parseInt',
-      absmag: '.absmag parseInt',
-      appmag: '.appmag parseInt'
-    }
+  // set up the active tab 
+  $('#stars.tab-pane').addClass('active');
+
+  // grab our containers
+  var $container = [$('#stars.isotope-data'), 
+                    $('#exoplanets.isotope-data'), 
+                    $('#galaxies.isotope-data'),
+                    $('#clusters.isotope-data')];
+
+  // our buttons for sorting
+  var $sortButtons = [$('#stars-sorts'),
+                      $('#exoplanets-sorts'),
+                      $('#galaxies-sorts'),
+                      $('#clusters-sorts')];
+  var sortData = [{
+                    name: '.name',
+                    distly: '.distly parseInt',
+                    lum: '.lum parseInt',
+                    colorb_v: '.colorb_v parseInt',
+                    speed: '.speed parseInt',
+                    absmag: '.absmag parseInt',
+                    appmag: '.appmag parseInt'
+                  },
+                  {
+                    name: '.name',
+                    distance: '.distance parseInt',
+                    numplanets: '.numplanets parseInt',
+                    texture: '.texture parseInt'
+                  },
+                  {
+                    name: '.name',
+                    distly: '.distly parseInt'
+                  },
+                  {
+                    name: '.name',
+                    distly: '.distly parseInt',
+                    diam: '.diam parseInt',
+                    logage: '.logage parseInt',
+                    metal: '.metal parseInt'
+                  }];
+
+  // initialize isotope on each container
+  jQuery.each($container, function (i, elem) {
+    elem.isotope({
+      itemSelector: '.isotope-data-item',
+      layoutMode: 'fitRows',
+      getSortData: sortData[i]
+    });
+
+    // set up our sort buttons
+    $sortButtons[i].on('click', 'button', function() {
+      var sortByValue = $(this).attr('data-sort-by');
+      elem.isotope({ sortBy: sortByValue });
+    });
   });
 
-  // bind sort button click
-  $('#sorts').on( 'click', 'button', function() {
-    var sortByValue = $(this).attr('data-sort-by');
-    $container.isotope({ sortBy: sortByValue });
-  });
-
-  // change is-checked class on buttons
+  // change primary button coloring
   $('.button-group').each( function( i, buttonGroup ) {
     var $buttonGroup = $( buttonGroup );
     $buttonGroup.on( 'click', 'button', function() {
@@ -40,30 +73,6 @@ var setupGrid = function() {
     });
   });
 }
-
-// audio stuff
-var context;
-
-function init() {
-  try {
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    context = new AudioContext();
-  }
-  catch(e) {
-    console.log('Web Audio API is not supported in this browser');
-  }
-}
-
-$(document).on('click', 'i', function() {
-  var sound = $(this).closest('div').data('sound');
-  var oscillator = context.createOscillator();
-  oscillator.type = 'sine';    
-  oscillator.connect(context.destination);
-  oscillator.frequency.value = sound * 10; // value in hertz - need to normalize this over the max - min range into a human hearable sound
-  oscillator.start();
-  setTimeout(function(){ oscillator.stop(); }, 1000);
-});
-
 
 // graphing stuff
 
@@ -92,7 +101,7 @@ function drawVisualization() {
   // Create and populate a data table.
   var data = new vis.DataSet();
 
-  $.getJSON('/rawdata', function(stars) {  
+  $.getJSON('/rawstars', function(stars) {  
     for (i in stars) {
       var x = stars[i].x,
           y = stars[i].y,

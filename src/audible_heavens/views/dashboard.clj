@@ -1,7 +1,7 @@
 (ns audible_heavens.views.dashboard
   (:require [hiccup.core :refer :all]
             [audible_heavens.global :as global]
-            [audible_heavens.views :as view]))
+            [audible_heavens.views.views :as view]))
 
 (defn index []
   (html

@@ -1,4 +1,4 @@
-(ns audible_heavens.views
+(ns audible_heavens.views.views
   (:require [hiccup.core :refer :all]
             [audible_heavens.global :as g]))
 
@@ -12,8 +12,9 @@
     [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"}]
     [:script {:src "/static/bootstrap/js/bootstrap.min.js"}]
     [:script {:src "/static/js/stars.js"}]
+    [:script {:src "/static/js/audio.js"}]
     [:script {:src "/static/js/vis/dist/vis.js"}]
-    [:script {:src "//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.0/isotope.pkgd.min.js"}]
+    [:script {:src "http://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.0/isotope.pkgd.min.js"}]
     [:link {:href "/static/bootstrap/css/lavish-theme.css" :rel "stylesheet" :media "screen"}]
     [:link {:href "/static/css/audible_heavens.css" :rel "stylesheet" :media "screen"}]
     extras])
@@ -37,7 +38,7 @@
         [:a#brand.navbar-brand {:href "/"} @g/brand-name]]
       [:div#menu-nav-collapse.collapse.navbar-collapse
         [:ul.nav.navbar-nav.navbar-right
-          [:li [:a {:href "/allstars"} "All Stars" ]]
+          [:li [:a {:href "/rawdata"} "Raw Data" ]]
           [:li [:a {:href "/dashboard"} "Dashboard" ]]]]]])
 
 (defn jumbotron [title sub-title]
@@ -47,7 +48,7 @@
 
 (defn page-header [text sub-text]
   [:div.page-header
-    [:h1 text [:br] [:small sub-text]]])
+    [:h2 text [:br] [:small sub-text]]])
 
 (defn common-footer []
   [:div#footer.footer

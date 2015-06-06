@@ -22,10 +22,21 @@
 (defroutes routes
   (GET "/alo" [] "alo guvna")
   (GET "/" [] (landing/index))
-  (GET "/allstars" [] 
-    (let [stars (data/get-data data/stars-url)]
-      (rawdata/index stars (data/get-thresholds stars data/star-attributes))))
-  (GET "/rawdata" [] (data/get-data-raw data/stars-url))
+  (GET "/rawdata" [] 
+    (let [stars (data/get-data data/stars-url)
+          s_thresholds (data/get-thresholds stars data/star-attributes)
+          exoplanets (data/get-data data/exoplanets-url)
+          e_thresholds (data/get-thresholds exoplanets data/exoplanet-attributes)
+          galaxies (data/get-data data/galaxies-url)
+          g_thresholds (data/get-thresholds galaxies data/galaxy-attributes)
+          clusters (data/get-data data/clusters-url)
+          c_thresholds (data/get-thresholds clusters data/cluster-attributes)]
+      (rawdata/index 
+        {:stars {:data stars :thresholds s_thresholds :attributes data/star-attributes}
+         :exoplanets {:data exoplanets :thresholds e_thresholds :attributes data/exoplanet-attributes}
+         :galaxies {:data galaxies :thresholds g_thresholds :attributes data/galaxy-attributes}
+         :clusters {:data clusters :thresholds c_thresholds :attributes data/cluster-attributes}})))
+  (GET "/rawstars" [] (data/get-data-raw data/stars-url))
   (GET "/dashboard" [] (dashboard/index))
   (route/resources "/static/"))
 

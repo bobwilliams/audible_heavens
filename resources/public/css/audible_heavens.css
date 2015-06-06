@@ -19,11 +19,11 @@ body {
 
 /* ---- isotope ---- */
 
-.isotope-stars {
+.isotope-data {
 }
 
 /* clear fix */
-.isotope-stars:after {
+.isotope-data:after {
   content: '';
   display: block;
   clear: both;
@@ -31,7 +31,7 @@ body {
 
 /* ---- .element-item ---- */
 
-.isotope-star-item {
+.isotope-data-item {
   position: relative;
   float: left;
   width: 210px;
@@ -40,7 +40,7 @@ body {
   padding: 10px;
 }
 
-.isotope-star-item > * {
+.isotope-data-item > * {
   margin: 0;
   padding: 3px;
 }
