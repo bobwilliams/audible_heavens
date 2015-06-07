@@ -17,6 +17,10 @@ body {
   cursor: hand;
 }
 
+h4.name {
+  padding: 5px;
+}
+
 /* ---- isotope ---- */
 
 .isotope-data {
@@ -32,12 +36,15 @@ body {
 /* ---- .element-item ---- */
 
 .isotope-data-item {
-  position: relative;
-  float: left;
-  width: 210px;
-  height: 220px;
-  margin: 5px;
+  /*background: #ffffff;*/.
+  border: 1px solid #999;
   padding: 10px;
+  margin: 5px;
+  float: left;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;   
+  -webkit-box-shadow: 0px 0px 5px 1px #aaa;
+  box-shadow: 0px 0px 5px 1px #aaa;
 }
 
 .isotope-data-item > * {

@@ -24,11 +24,11 @@
 
 ; get max value from vector for given key
 (defn max-val [k v] 
-  (reduce max (map parse-val (map k v))))
+  (apply max (map parse-val (map k v))))
 
 ; get min value from vector for given key
 (defn min-val [k v]
-  (reduce min (map parse-val (map k v))))
+  (apply min (map parse-val (map k v))))
 
 ; http://stackoverflow.com/questions/929103/convert-a-number-range-to-another-range-maintaining-ratio
 (defn normalize-value [value max min]
