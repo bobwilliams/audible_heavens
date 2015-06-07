@@ -49,6 +49,9 @@
         (for [item data-values]
           (data-row item thresholds attributes))]]))
 
+(defn get-counts [data]
+  (count (get data :data)))
+
 (defn index [data]
   (html
     [:html
@@ -57,8 +60,12 @@
         (view/nav-bar)
         [:div.container
           ; (view/breadcrumbs [["home" "/"] ["all stars" "/allstars"]])
-            (view/page-header "All Heavenly Data" "") 
-              ; (str "showing data for " star-count " stars, " exoplanet-count " exoplanets, " galaxy-count " galaxies, and " cluster-count " clusters")))
+          (let [star-count (get-counts (get data :stars))
+                exoplanet-count (get-counts (get data :exoplanets))
+                galaxy-count (get-counts (get data :galaxies))
+                cluster-count (get-counts (get data :clusters))
+                sub-title (str star-count " stars, " exoplanet-count " exoplanets, " galaxy-count " galaxies, and " cluster-count " clusters")]
+            (view/page-header "All Heavenly Data" sub-title))
           [:ul#data-tabs.nav.nav-tabs.nav-pills
             [:li.active [:a {:href "#stars" :data-toggle "tab"} "Stars"]]
             [:li [:a {:href "#exoplanets" :data-toggle "tab"} "Exoplanets"]]
