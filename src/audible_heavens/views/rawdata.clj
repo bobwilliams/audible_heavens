@@ -75,5 +75,6 @@
             (for [datum data]
               [:div.tab-pane {:id (key datum)} (display-data datum)])]]
         (view/common-footer)]
+        [:script {:src "http://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.0/isotope.pkgd.min.js"}]        
         [:script {:src "/static/js/stars.js"}]
         [:script {:src "/static/js/audio.js"}]]))

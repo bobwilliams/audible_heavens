@@ -11,7 +11,6 @@
     [:link {:href "/static/bootstrap/css/bootstrap.min.css" :rel "stylesheet" :media "screen"}]
     [:script {:src "http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"}]
     [:script {:src "/static/bootstrap/js/bootstrap.min.js"}]
-    [:script {:src "http://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.0/isotope.pkgd.min.js"}]
     [:link {:href "/static/bootstrap/css/lavish-theme.css" :rel "stylesheet" :media "screen"}]
     [:link {:href "/static/css/audible_heavens.css" :rel "stylesheet" :media "screen"}]
     extras])
