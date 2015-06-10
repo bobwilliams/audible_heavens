@@ -74,4 +74,6 @@
           [:div#tab-content.tab-content 
             (for [datum data]
               [:div.tab-pane {:id (key datum)} (display-data datum)])]]
-        (view/common-footer)]]))
+        (view/common-footer)]
+        [:script {:src "/static/js/stars.js"}]
+        [:script {:src "/static/js/audio.js"}]]))

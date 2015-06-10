@@ -18,4 +18,6 @@
           [:div.row
             [:div.col-md-6 (view/panel "Abs Mag" [:div#absmapgraph])]
             [:div.col-md-6 (view/panel "App Mag" [:div#appmaggraph])]]]
-        (view/common-footer)]]))
+        (view/common-footer)]
+        [:script {:src "/static/js/vis/dist/vis.js"}]
+        [:script {:src "/static/js/dashboard.js"}]]))
