@@ -50,6 +50,12 @@
   [:div.page-header
     [:h2 text [:br] [:small sub-text]]])
 
+(defn panel [title & body]
+  [:div.panel.panel-primary
+    [:div.panel-heading
+      [:h3.panel-title title]]
+    [:div.panel-body body]])
+
 (defn common-footer []
   [:div#footer.footer
     [:div.text-muted "Copyright &copy; 2015 Bob Williams. All Rights Reserved"]])

@@ -11,6 +11,11 @@
         (view/nav-bar)
         [:div.container
           ; (view/breadcrumbs [["home" "/"] ["dashboard" "/dashboard"]])
-          (view/page-header "Dashboard" (str "graphing luminosity for the stars"))
-          [:div#mygraph]
-        (view/common-footer)]]]))
+          (view/page-header "Dashboard" "A few high-level views into the data")
+          [:div.row
+            [:div.col-md-6 (view/panel "Luminosity" [:div#lumgraph])]
+            [:div.col-md-6 (view/panel "Color" [:div#colorgraph])]]
+          [:div.row
+            [:div.col-md-6 (view/panel "Abs Mag" [:div#absmapgraph])]
+            [:div.col-md-6 (view/panel "App Mag" [:div#appmaggraph])]]]
+        (view/common-footer)]]))

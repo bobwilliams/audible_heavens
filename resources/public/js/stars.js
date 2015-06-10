@@ -99,7 +99,7 @@ var generateTooltip = function(star){
 // Called when the Visualization API is loaded.
 function drawVisualization() {
   // Create and populate a data table.
-  var data = new vis.DataSet();
+  var data = [new vis.DataSet(), new vis.DataSet(), new vis.DataSet(), new vis.DataSet()];
 
   $.getJSON('/rawstars', function(stars) {  
     for (i in stars) {
@@ -107,12 +107,10 @@ function drawVisualization() {
           y = stars[i].y,
           z = stars[i].z;
       starMemos[getKey(stars[i])] = stars[i];
-      data.add({
-            x: x,
-            y: y,
-            z: z,
-            style: stars[i].lum
-       });
+      data[0].add({x: x, y: y, z: z, style: stars[i].lum});
+      data[1].add({x: x, y: y, z: z, style: stars[i].colorb_v});
+      data[2].add({x: x, y: y, z: z, style: stars[i].absmag});
+      data[3].add({x: x, y: y, z: z, style: stars[i].appmag});
     }
 
     // specify options
@@ -125,12 +123,18 @@ function drawVisualization() {
       showShadow: false,
       keepAspectRatio: true,
       verticalRatio: 0.5,
-      legendLabel: "Luminosity",
+      // legendLabel: "Luminosity",
       tooltip: function(star) {return generateTooltip(star);}
     };
 
     // create a graph3d
-    var container = document.getElementById('mygraph');
-    graph3d = new vis.Graph3d(container, data, options);
+    var container = [document.getElementById('lumgraph'), 
+                     document.getElementById('colorgraph'),
+                     document.getElementById('absmapgraph'),
+                     document.getElementById('appmaggraph')];
+    graph3d = new vis.Graph3d(container[0], data[0], options);
+    graph3d = new vis.Graph3d(container[1], data[1], options);
+    graph3d = new vis.Graph3d(container[2], data[2], options);
+    graph3d = new vis.Graph3d(container[3], data[3], options);    
   });
 }
