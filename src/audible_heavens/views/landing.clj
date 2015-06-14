@@ -7,7 +7,7 @@
   (html
     [:html
       (view/common-head)
-      [:body {:style "background-image:url(/static/images/heavens_background.jpg);"}
+      [:body.landing
         (view/nav-bar)
         (view/forkme)
         [:div.container

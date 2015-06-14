@@ -4,6 +4,13 @@ body {
   padding-top: 70px; 
 }
 
+body.landing {
+  background-image:url(/static/images/heavens_background.jpg);
+  background-repeat: no-repeat;
+  padding:35px;
+  background-origin: content-box;
+}
+
 .footer {
   padding-top: 20px;
   padding-bottom: 30px;
