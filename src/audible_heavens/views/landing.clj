@@ -7,7 +7,7 @@
   (html
     [:html
       (view/common-head)
-      [:body {:style "background-image:url(/static/images/hs-2015-12-a-2560x1024_wallpaper.jpg);"}
+      [:body {:style "background-image:url(/static/images/heavens_background.jpg);"}
         (view/nav-bar)
         (view/forkme)
         [:div.container
